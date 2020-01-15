@@ -87,7 +87,48 @@ export default class APP extends Component {
 
       // Eval retorna o resultado da operação setada anteriomente e armazena em values[0]
       try{
-        values[0] = eval(`${values[0]} ${this.state.operation} ${values[1]}`)
+        console.debug(eval(`${values[0]} ${this.state.operation} ${values[1]}`));
+        console.debug(parseFloat(eval(`${values[0]} ${this.state.operation} ${values[1]}`).toFixed(9)));
+
+        /**
+         * #############################
+         * ######## Problema #1 ########
+         * #############################
+         * 
+         * Ao realizar soma ou subtração com números decimais o javascript apresenta problema na precisão.
+         * 
+         * *** Deprecated ***
+         * values[0] = eval(`${values[0]} ${this.state.operation} ${values[1]}`)
+         * 
+         * Isso ocorre porque os valores são transformados em strings para utilização na função eval.
+         * O Javascript tem esse problema de precisão quando realiza somas de strings. Esse probela 
+         * poderá ser testado no console de qualquer navegador.
+         * 
+         * Exe #1: 
+         * '5.3' + '0.6' = 5.8999999999999995
+         * 5.3 + 0.6 = 5.9
+         * 
+         * Exe #2: 
+         * '5.6' - '0.2' = 5.3999999999999995 
+         * 5.6 - 0.2 = 5.4 
+         * 
+         */
+
+        /**
+         * #############################
+         * ######## Melhoria #1 ########
+         * #############################
+         * 
+         * O Problema #1 foi solicionado com a adição do toFixed(9) para precisão com a quantidade de dígitos 
+         * possíveis no visor. 
+         *  
+         * (5.3 + 0.6).toFixed(9) = "5.900000000"
+         * 
+         * E posteriormente a introdução do parseFloat() que irá ignorar os zeros a direita retornando: 
+         * parseFloat("5.900000000") = 5.9
+         */
+
+        values[0] = parseFloat(eval(`${values[0]} ${this.state.operation} ${values[1]}`).toFixed(9));
       }
       // Em caso de falha restaura para o valor anterios
       catch(e){
