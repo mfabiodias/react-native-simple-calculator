@@ -13,9 +13,9 @@ const style = StyleSheet.create({
         width: Dimensions.get('window').width / 4,
         padding: 20,
         backgroundColor: '#f0f0f0',
+        textAlign: 'center',
         borderWidth: 1,
         borderColor: '#888',
-
     },
     operationButton: {
         color: '#fff',

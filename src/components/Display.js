@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
 
 export default props => 
     <View style={styles.display}>
-        <Text style={styles.displayValue} numberOfines={1} >
+        <Text style={styles.displayValue} numberOfines={1} numberOfLines={1} >
             {props.value}
         </Text>
     </View>
