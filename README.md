@@ -1,16 +1,20 @@
 # Calculadora com React-Native
 <br /><br />
-#### Versão 2.0 (Em Desenvolvimento)
+#### Versão 2.0
 
-![N|Solid](https://raw.githubusercontent.com/mfabiodias/react-native-simple-calculator/master/src/images/layout/calculator-layout-v2_0.png)
+![N|Solid](https://raw.githubusercontent.com/mfabiodias/react-native-simple-calculator/master/src/images/layout/calculator-layout-v2_0_1.png)
 
-  - Novo Layout com todas funcionalidades da calculador do MacOS
-  - Substituição do operador / -> ÷
-  - Substituição do operador * -> x
-  - Substituição do caracter . -> ,
+  - Adicionado Layout com todas funcionalidades da calculador MacOS
+  - Substituição do operador (/) por (÷)
+  - Substituição do operador (*) por (x)
+  - Substituição do caracter (.) por (,)
   - Adição da funcionalidade de porcentagem (%)
-  - Adição da funcionalidade mudança de sinal (+/-) 
-  - Adição da funcionalidade de operador ativo ao realizar uma operação 
+  - Adição da funcionalidade de mudança de sinal (+/-) 
+  - Adição da funcionalidade de operador ativo ao realizar uma operação
+  - Adição de bloqueio de tela para dispositovo não entrar no modo paisagem. 
+  - Correção da divisão de 0/0 que retornava NaN 
+  - Adição do zero antes da vírgula quando número for menor que 1
+  - Auto operação adicionada. Exemplo: Sabemos que 2 + 2 = 4, mas se pressionado novamente o operador (=) ele soma o resultado obtido anteriormente (4) e soma com (2) novamente, depois 6 + 2 e assim sucessivamente. A auto operação funciona em todas as operações inclusas (+, -, x, ÷ e %) na versão 2.0
 
 Modificações e melhorias da versão 2.0 desenvolvida por Fabio Messias Dias.<br /><br />
 Email: [mfabiodias@gmail.com](mailto:mfabiodias@gmail.com)<br />
