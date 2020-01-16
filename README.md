@@ -7,7 +7,7 @@
   - Novo Layout com todas funcionalidades da calculador do MacOS
   - Substituição do operador / -> ÷
   - Substituição do operador * -> x
-  - Substituição do caracter . ->
+  - Substituição do caracter . -> ,
   - Adição da funcionalidade de porcentagem (%)
   - Adição da funcionalidade mudança de sinal (+/-) 
   - Adição da funcionalidade de operador ativo ao realizar uma operação 
