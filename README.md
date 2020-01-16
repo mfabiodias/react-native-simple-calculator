@@ -1,5 +1,5 @@
 # Calculadora com React-Native
-
+<br /><br />
 #### Versão 2.0 (Em Desenvolvimento)
 
 ![N|Solid](https://raw.githubusercontent.com/mfabiodias/react-native-simple-calculator/master/src/images/layout/calculator-layout-v2_0.png)
@@ -12,12 +12,12 @@
   - Adição da funcionalidade mudança de sinal (+/-) 
   - Adição da funcionalidade de operador ativo ao realizar uma operação 
 
-Modificações e melhorias da versão 2.0 desenvolvida por Fabio Messias Dias.
-Email: [mfabiodias@gmail.com](mailto:mfabiodias@gmail.com)
-WhatsApp WEB [(11) 93145-4949)](https://web.whatsapp.com/send?phone=5511931454949)
-WhatsApp Mobile [(11) 93145-4949)](https://api.whatsapp.com/send?phone=5511931454949)
+Modificações e melhorias da versão 2.0 desenvolvida por Fabio Messias Dias.<br /><br />
+Email: [mfabiodias@gmail.com](mailto:mfabiodias@gmail.com)<br />
+WhatsApp WEB [(11) 93145-4949)](https://web.whatsapp.com/send?phone=5511931454949)<br />
+WhatsApp Mobile [(11) 93145-4949)](https://api.whatsapp.com/send?phone=5511931454949)<br />
 
-
+<br /><br />
 #### Versão 1.0
 ![N|Solid](https://raw.githubusercontent.com/mfabiodias/react-native-simple-calculator/master/src/images/layout/calculator-layout-v1_0.png)
 
