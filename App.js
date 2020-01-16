@@ -35,6 +35,12 @@ export default class APP extends Component {
   // Clona o estado inicial para utiliza-lo na classe
   state = {...initialState}
 
+  replaceOperation = (operation) => {
+    if(operation === '÷') return '/'
+    else if(operation === 'x') return '*'
+    else return operation
+  }
+
   // Adiciona os digitos pressionados no visor da calculadora
   addDigit = n => {
 
@@ -72,6 +78,10 @@ export default class APP extends Component {
 
   // Aplica a operação selecionada (Lógica da calculadora).
   setOperation = operation => {
+
+    //console.debug(this.replaceOperation(operation))
+
+    operation = this.replaceOperation(operation)
     
     // Armazena o operador e incrementa o ponteiro de values através do atributo current
     if(this.state.current === 0)
@@ -87,9 +97,9 @@ export default class APP extends Component {
 
       // Eval retorna o resultado da operação setada anteriomente e armazena em values[0]
       try{
-        console.debug(eval(`${values[0]} ${this.state.operation} ${values[1]}`));
-        console.debug(parseFloat(eval(`${values[0]} ${this.state.operation} ${values[1]}`).toFixed(9)));
-
+        // console.debug(eval(`${values[0]} ${this.state.operation} ${values[1]}`));
+        // console.debug(parseFloat(eval(`${values[0]} ${this.state.operation} ${values[1]}`).toFixed(9)));
+        
         /**
          * #############################
          * ######## Problema #1 ########
@@ -130,8 +140,9 @@ export default class APP extends Component {
 
         values[0] = parseFloat(eval(`${values[0]} ${this.state.operation} ${values[1]}`).toFixed(9));
       }
-      // Em caso de falha restaura para o valor anterios
+      // Em caso de falha restaura para o valor anterior
       catch(e){
+        console.debug(e)
         values[0] = this.state.values[0]
       }
 
@@ -156,23 +167,25 @@ export default class APP extends Component {
       <View style={styles.container}>
         <Display value={this.state.displayValue} />
         <View style={styles.buttons}>
-          <Button label='AC'onClick={this.clearMemory} triple ></Button>
-          <Button label='/' onClick={this.setOperation} operation ></Button>
-          <Button label='7' onClick={this.addDigit} ></Button>
-          <Button label='8' onClick={this.addDigit} ></Button>
-          <Button label='9' onClick={this.addDigit} ></Button>
-          <Button label='*' onClick={this.setOperation} operation ></Button>
-          <Button label='4' onClick={this.addDigit} ></Button>
-          <Button label='5' onClick={this.addDigit} ></Button>
-          <Button label='6' onClick={this.addDigit} ></Button>
-          <Button label='-' onClick={this.setOperation} operation ></Button>
-          <Button label='1' onClick={this.addDigit} ></Button>
-          <Button label='2' onClick={this.addDigit} ></Button>
-          <Button label='3' onClick={this.addDigit} ></Button>
-          <Button label='+' onClick={this.setOperation} operation ></Button>
-          <Button label='0' onClick={this.addDigit} double ></Button>
-          <Button label='.' onClick={this.addDigit} ></Button>
-          <Button label='=' onClick={this.setOperation} operation ></Button>
+          <Button label='AC'  onClick={this.clearMemory} ></Button>
+          <Button label='+/-' onClick={this.clearMemory} ></Button>
+          <Button label='%'   onClick={this.clearMemory} ></Button>
+          <Button label='÷'   onClick={this.setOperation} operation ></Button>
+          <Button label='7'   onClick={this.addDigit} ></Button>
+          <Button label='8'   onClick={this.addDigit} ></Button>
+          <Button label='9'   onClick={this.addDigit} ></Button>
+          <Button label='x'   onClick={this.setOperation} operation ></Button>
+          <Button label='4'   onClick={this.addDigit} ></Button>
+          <Button label='5'   onClick={this.addDigit} ></Button>
+          <Button label='6'   onClick={this.addDigit} ></Button>
+          <Button label='-'   onClick={this.setOperation} operation ></Button>
+          <Button label='1'   onClick={this.addDigit} ></Button>
+          <Button label='2'   onClick={this.addDigit} ></Button>
+          <Button label='3'   onClick={this.addDigit} ></Button>
+          <Button label='+'   onClick={this.setOperation} operation ></Button>
+          <Button label='0'   onClick={this.addDigit} double ></Button>
+          <Button label='.'   onClick={this.addDigit} ></Button>
+          <Button label='='   onClick={this.setOperation} operation ></Button>
         </View>
       </View>
     )
