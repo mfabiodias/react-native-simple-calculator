@@ -1,6 +1,7 @@
 # Calculadora com React-Native
 
-# Versão 2.0 (Em Desenvolvimento)
+#### Versão 2.0 (Em Desenvolvimento)
+
 ![N|Solid](https://raw.githubusercontent.com/mfabiodias/react-native-simple-calculator/master/src/images/layout/calculator-layout-v2_0.png)
 
   - Novo Layout com todas funcionalidades da calculador do MacOS
@@ -17,7 +18,7 @@ WhatsApp WEB [(11) 93145-4949)](https://web.whatsapp.com/send?phone=551193145494
 WhatsApp Mobile [(11) 93145-4949)](https://api.whatsapp.com/send?phone=5511931454949)
 
 
-# Versão 1.0
+#### Versão 1.0
 ![N|Solid](https://raw.githubusercontent.com/mfabiodias/react-native-simple-calculator/master/src/images/layout/calculator-layout-v1_0.png)
 
   - Contém as 4 operaçoes básicas 
