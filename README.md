@@ -1,5 +1,5 @@
 # Calculadora com React-Native
-<br />
+<br /><br />
 #### Versão 2.0 (Em Desenvolvimento)
 
 ![N|Solid](https://raw.githubusercontent.com/mfabiodias/react-native-simple-calculator/master/src/images/layout/calculator-layout-v2_0.png)
