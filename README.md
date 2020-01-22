@@ -2,7 +2,7 @@
 <br /><br />
 #### Versão 2.0
 
-![N|Solid](https://raw.githubusercontent.com/mfabiodias/react-native-simple-calculator/master/src/images/layout/calculator-layout-v2_0.png)
+![N|Solid](https://raw.githubusercontent.com/mfabiodias/react-native-simple-calculator/master/src/images/layout/calculator-layout-v2_0_1.png)
 
   - Adicionado Layout com todas funcionalidades da calculador MacOS
   - Substituição do operador (/) por (÷)
