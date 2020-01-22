@@ -7,6 +7,7 @@ const initialState = {
   displayValue: '0', // Valor inicial do visor
   clearDisplay: false, // Atributo para limpar o display
   operation: null, // Atributo que armazena o operador
+  operationBasic: false, // Atributo para alternar operador sem executar operação
   values: [0,0], // Explicação abaixo.
   current: 0, // Posição para adicionar valores no array values. Valores validos (0 e 1)
 }
@@ -16,18 +17,26 @@ export default class APP extends Component {
   // Clona o estado inicial para utiliza-lo na classe
   state = {...initialState}
 
+  // Função que substitui sinal da calculadora para execução em JS
   replaceOperation = (operation) => {
     if(operation === '÷') return '/'
     else if(operation === 'x') return '*'
     else return operation
   }
 
+  // Função que inverte o sinal
   reverseSign = (num) => {
     return num - (num * 2)
   }
 
+  // Função para impressão do valor no display
   getDisplayValue = (num) => {
     return num.toString().replace('.', ',')
+  }
+
+  // Restaura a calculadora para seu estado inicial
+  clearMemory = () => {
+    this.setState({ ...initialState })
   }
 
   // Adiciona os digitos pressionados no visor da calculadora
@@ -36,7 +45,7 @@ export default class APP extends Component {
     // Limpa display quando valor do display for 0 ou clearDisplay for true
     const clearDisplay = this.state.displayValue === '0' || this.state.clearDisplay
 
-    // Validação para apenas um ponto. Caso o ponto já esteja em displayValue ele é ignorado 
+    // Validação para apenas uma vírgula. Caso a vírgula já esteja em displayValue ela será ignorada 
     if(n === ',' && !clearDisplay && this.state.displayValue.includes(',')) return
 
     // Insere o zero antes da vírgula quando número inteiro for menor que 1
@@ -49,9 +58,9 @@ export default class APP extends Component {
     const displayValue = currentValue + n
 
     // Salva o estado atual do displayValue e restaura clearDisplay para continuar concatenando os digitos
-    this.setState({ displayValue,  clearDisplay: false })
+    this.setState({ displayValue,  clearDisplay: false, operationBasic: false })
 
-    // Armazena o valor concatenado na posição do array correspondente (0 ou 1).
+    // Armazena o valor concatenado na posição do array values correspondente (0 ou 1).
     if(n !== ',')
     {
       const newValue = parseFloat(displayValue.replace(',', '.'))
@@ -61,18 +70,77 @@ export default class APP extends Component {
     }
   }
 
-  // Restaura a calculadora para seu estado inicial
-  clearMemory = () => {
-    this.setState({ ...initialState })
+  // Aplica a operação selecionada (Lógica da calculadora).
+  setOperation = operation => {
+
+    // Modifica o operador visual para seu correspondente antes da execução
+    operation = this.replaceOperation(operation)
+
+    const values = [... this.state.values]
+    const current = this.state.current
+    let displayValue = 0
+
+    if(operation === '+/-' || operation === '%')
+    {
+      if(operation === '+/-')
+      {
+        values[current] = this.reverseSign(values[current])
+        displayValue = this.getDisplayValue(values[current])
+      }
+      else
+      {
+        if(current == 0)
+        {
+          values[0] = values[current] / 100
+          displayValue = this.getDisplayValue(values[0])
+        }
+        else
+        {
+          values[1] = values[0] * values[1] / 100
+          displayValue = this.getDisplayValue(values[1])
+        }
+      }
+
+      // Define o estado da calculadora após aplicar a lógica
+      this.setState({
+        displayValue, // Seta o resultado da operação como string para o display 
+        operation: (operation === '%' && values[1] == 0) ? null : this.state.operation, // Seta ou redefine o atributo
+        operationBasic: false, 
+        current, // Posição atual do array
+        clearDisplay: true,
+        values, // Armazena o array atual
+      })
+    }
+    // Operações básicas (+, -, x, ÷)
+    else
+    {
+      // Armazena o operador e incrementa o ponteiro de values através do atributo current
+      if(current === 0)
+      {
+        this.setState({ operation, operationBasic: true, current: 1, clearDisplay: true})
+      }
+      // Aplica a lógica ao operador armazenado na etapa anterior no array values
+      else
+      {
+        // Zera o values[1] quando o usuário clica em uma operação (+, -, x, ÷)
+        values[0] = this.state.operationBasic ? values[0] : this.setTotal()
+
+        // Define o estado da calculadora após aplicar a lógica
+        this.setState({
+          displayValue: this.getDisplayValue(values[0]), 
+          operation, // Seta ou redefine o atributo
+          operationBasic: true,
+          clearDisplay: true, // Limpa o display quando digitado os operadores (+, -, x, ÷)
+          values, // Armasena o array atual no estado
+        })
+      }
+    }
   }
 
   // Função realiza o total das operações
   setTotal = (clearValue) => {
-    
-    const values = [... this.state.values]
 
-    // Opção para zerar o valor anterior da memória quando setTotal e invocada de setOperation
-    values[1] = clearValue === true ? 0 : values[1]
+    const values = [... this.state.values]
 
     try{
       // Eval retorna o resultado da operação setada anteriomente e armazena em values[0]
@@ -87,65 +155,19 @@ export default class APP extends Component {
       values[0] = this.state.values[0]
     }
 
-    // Define o estado da calculadora após aplicar a lógica
-    if(clearValue === true)
+    // Quando setTotal é invocada em setOperation 
+    if(clearValue !== '=')
     {
-      this.setState({ values })
+      return values[0];
     }
+    // Quando pressionado na calculadora
     else
     {
       this.setState({
         displayValue: this.getDisplayValue(values[0]),  
+        operationBasic: true,
         values,
       })
-    }
-  }
-
-  // Aplica a operação selecionada (Lógica da calculadora).
-  setOperation = operation => {
-
-    // Modifica o operador visual para seu correspondente antes da execução
-    operation = this.replaceOperation(operation)
-
-    const values = [... this.state.values]
-    const current = this.state.current
-      
-    if(operation === '%' || operation === '+/-')
-    {
-      // Implementamos a lógica da função que muda o sinal do número recebido
-      values[current] = operation === '+/-' ? this.reverseSign(values[current]) 
-        // Implementada a lógica da porcentagem
-        : current == 0 ? values[current] / 100 : values[0] * values[1] / 100
-
-      // Define o estado da calculadora após aplicar a lógica
-      this.setState({
-        displayValue: this.getDisplayValue(values[current]), // Seta o resultado da operação como string para o display 
-        operation: (operation === '%' && values[1] == 0) ? null : this.state.operation, // Seta ou redefine o atributo
-        current, // Salva a posição do array values
-        values, // Armazena o array atual no estado
-      })
-    }
-    else
-    {
-
-      // Armazena o operador e incrementa o ponteiro de values através do atributo current
-      if(current === 0)
-      {
-        this.setState({ operation, current: 1, clearDisplay: true})
-      }
-      // Aplica a lógica ao operador armazenado na etapa anterior no array values
-      else
-      {
-        // Zera o values[1] quando o usuário clica em uma operação (+, -, *, /, %, +/-) e values[1] não está zerada
-        this.setTotal(true)
-
-        // Define o estado da calculadora após aplicar a lógica
-        this.setState({
-          operation: operation, // Seta ou redefine o atributo
-          clearDisplay: true, // Limpa o display quando digitado os operadores (+, -, *, /)
-          values, // Armasena o array atual no estado
-        })
-      }
     }
   }
 
