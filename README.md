@@ -1,5 +1,9 @@
 # Calculadora com React-Native
 <br /><br />
+#### Versão 2.0.1
+  - Correção de BUG ao realizar operações sequenciais
+
+<br /><br />
 #### Versão 2.0
 
 ![N|Solid](https://raw.githubusercontent.com/mfabiodias/react-native-simple-calculator/master/src/images/layout/calculator-layout-v2_0_1.png)
